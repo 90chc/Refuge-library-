@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>فتح ملفات PDF</title>
+    <style>
+        /* تصميم عام للصفحة بخلفية سوداء */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #000; /* خلفية سوداء */
+            color: #fff; /* لون النص */
+            text-align: center;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* تصميم العنوان */
+        h1 {
+            color: #32CD32; /* اللون الأخضر */
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        /* تصميم الحاوية باللون الأسود ورفعها للأعلى */
+        .container {
+            background: #000; /* خلفية الحاوية سوداء */
+            border-radius: 12px;
+            padding: 30px 40px;
+            box-shadow: 0 8px 16px rgba(255, 255, 255, 0.1);
+            width: 100%;
+            max-width: 300px;
+            margin-top: 20px; /* محاذاة الحاوية للأعلى */
+            z-index: 1; /* تأكد من ظهور الأزرار فوق الخلفية المغوشة */
+        }
+
+        /* تصميم الأزرار بألوان متدرجة */
+        .btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 10px 0;
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(45deg, #6a11cb, #2575fc); /* تدرج لوني */
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        /* تأثير عند التمرير */
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.5);
+        }
+
+        /* تأثير عند الضغط */
+        .btn:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        /* تصميم الشعار */
+        .logo {
+            width: 250px; /* تكبير حجم الشعار */
+            margin-bottom: 20px; /* مسافة بين الشعار والعنوان */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            position: absolute;
+            top: 50%; /* وضع الشعار في المنتصف عموديًا */
+            left: 50%; /* وضع الشعار في المنتصف أفقيًا */
+            transform: translate(-50%, -50%); /* التأكد من محاذاة الشعار تمامًا في المنتصف */
+            z-index: 2; /* تأكد من ظهور الشعار فوق الخلفية المغوشة */
+            transition: transform 2s ease, opacity 2s ease; /* إضافة تأثير التصغير والتلاشي */
+        }
+
+        /* تأثير التغويش */
+        .blur-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* خلفية داكنة */
+            filter: blur(10px); /* تأثير التغويش */
+            z-index: 0; /* خلف العناصر الأخرى */
+        }
+
+        /* تنسيق حقوق الطبع والنشر */
+        footer {
+            position: fixed;
+            bottom: 10px;
+            width: 100%;
+            text-align: center;
+            font-size: 10px; /* حجم النص صغير جداً */
+            color: #fff; /* تعديل اللون إلى الأبيض */
+            z-index: 3; /* تأكد من أنه يظهر فوق باقي المحتوى */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- خلفية مغوشة -->
+    <div class="blur-background" id="blurBackground"></div>
+
+    <!-- إضافة الشعار في وسط الصفحة -->
+    <img src="https://h.top4top.io/p_32325mkxg0.jpg" alt="شعار الموقع" class="logo" id="logo">
+
+    <div class="container">
+        <h1>مرحباً بك في مكتبة الحاسبات<br>مرحلة ثانية</h1>
+
+        <!-- أزرار لفتح ملفات PDF -->
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/14PTZnjmrXE42K9Ql0AdFJEUXLR2qZA-q/view?usp=drivesdk')">الإسلامية</button>
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/1498tmdvmRUCaaNvBIuXmM6Gghz0WUuwc/view?usp=drivesdk')">العربي</button>
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/14OmaX2wXnsVqtNvOsg2EAkrDy0s7swNQ/view?usp=drivesdk')">الطبيعيات</button>
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/14EDpvFpgVwNx6Sa-IQytgBTPdUwfuP1l/view?usp=drivesdk')">صيانة الحاسوب</button>
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/14EHW0G2gTF1Gvzoxz1mwSEVre34qwNOA/view?usp=drivesdk')">الانكليزي</button>
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/14IEcqmlmqUjWHwV1WsggYKNkGajdi8bq/view?usp=drivesdk')">الرياضيات</button>
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/14J3yLOqfqV3W_mp-7-SK2NaXF53KFtgy/view?usp=drivesdk')">التصميم المنطقي</button>
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/14O8SP02w8BE1SJ4aq0IjUGdnjxvDpsbg/view?usp=drivesdk')">تطبيقات الحاسوب</button>
+        <button class="btn" onclick="openPDF('https://drive.google.com/file/d/14JO9FjuZiX90g2_RlG-SQc0jJCBbNR96/view?usp=drivesdk')">شبكات </button>
+    </div>
+
+    <!-- حقوق الطبع والنشر -->
+    <footer>
+        <p>هذا التطبيق صنع بواسطة حسين رعد بمساعدة الذكاء الاصطناعي</p>
+    </footer>
+
+    <script>
+        // دالة لفتح ملف PDF في نافذة جديدة
+        function openPDF(pdfPath) {
+            window.open(pdfPath, '_blank');
+        }
+
+        // إخفاء الشعار بعد 3 ثواني
+        window.onload = function() {
+            setTimeout(function() {
+                // تصغير الشعار وجعل شفافيته صفر بعد 3 ثوانٍ
+                document.getElementById("logo").style.transform = "scale(0.2)"; // تصغير الشعار
+                document.getElementById("logo").style.opacity = "0"; // جعل الشعار شفافًا
+                document.getElementById("blurBackground").style.display = "none"; // إخفاء الخلفية المغوشة بعد 3 ثواني
+            }, 3000); // الانتظار 3 ثوانٍ قبل إخفاء الشعار
+        }
+    </script>
+
+</body>
+</html>
