@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>نظام إدارة اشتراكات الإنترنت</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">   
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         :root {
-            --primary: #2c3e50;  
+            --primary: #2c3e50;   
             --primary-dark: #1a252f;
             --secondary: #3498db;
             --accent: #2980b9;
@@ -291,98 +291,79 @@
             background-color: rgba(243, 156, 18, 0.15);
             color: var(--warning);
         }
-
         /* أنماط خاصة للهواتف */
         @media (max-width: 768px) {
             body {
                 font-size: 14px;
             }
-
             .header h1 {
                 font-size: 22px;
             }
-
             .nav-links {
                 flex-direction: column;
                 gap: 5px;
                 width: 100%;
             }
-
             .nav-link {
                 width: 100%;
                 text-align: right;
                 padding: 10px 12px;
                 font-size: 14px;
             }
-
             .card-title {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
-
             .form-group label {
                 font-size: 14px;
             }
-
             input, select, textarea {
                 font-size: 14px;
                 padding: 8px 12px;
             }
-
             .btn {
                 font-size: 14px;
                 padding: 8px 12px;
             }
-
             .modal-content {
                 max-width: 95%;
                 padding: 15px;
             }
-
             .status {
                 font-size: 11px;
                 padding: 4px 8px;
             }
-
             table {
                 font-size: 13px;
             }
-
             th, td {
                 white-space: nowrap;
             }
-
             .form-actions {
                 flex-direction: column;
                 gap: 10px;
             }
         }
-
         @media (max-width: 480px) {
             .header h1 {
                 font-size: 20px;
             }
-
             .nav-link {
                 padding: 8px 10px;
                 font-size: 13px;
             }
-
             .btn {
                 font-size: 13px;
                 padding: 6px 10px;
             }
-
             input, select, textarea {
                 padding: 6px 10px;
                 font-size: 13px;
             }
-
             th, td {
                 padding: 8px 10px;
             }
-
             .card-title {
                 font-size: 16px;
             }
@@ -580,7 +561,7 @@
             </form>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>   
     <script>
         // تخزين البيانات محليًا
         function loadDataFromLocalStorage() {
@@ -621,6 +602,16 @@
             document.getElementById('companyPhone').value = systemData.companyPhone;
             document.getElementById('defaultSubscriptionPeriod').value = systemData.defaultSubscriptionPeriod;
         }
+        // حفظ إعدادات النظام
+        document.getElementById('systemSettingsForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            systemData.companyName = document.getElementById('companyName').value;
+            systemData.companyAddress = document.getElementById('companyAddress').value;
+            systemData.companyPhone = document.getElementById('companyPhone').value;
+            systemData.defaultSubscriptionPeriod = parseInt(document.getElementById('defaultSubscriptionPeriod').value);
+            saveDataToLocalStorage();
+            showSuccess('تم حفظ إعدادات النظام بنجاح');
+        });
         // عرض الباقات
         function renderPackages() {
             const packagesList = document.getElementById('packagesList');
@@ -648,6 +639,73 @@
                 option.value = pkg.id;
                 option.textContent = `${pkg.name} - ${pkg.speed} ميجابت - ${formatCurrency(pkg.price)} دينار`;
                 packageTypeSelect.appendChild(option);
+            });
+        }
+        // إضافة باقة جديدة
+        document.getElementById('addPackageBtn').addEventListener('click', function () {
+            document.getElementById('packageModalTitle').textContent = 'إضافة باقة جديدة';
+            document.getElementById('packageForm').reset();
+            document.getElementById('packageId').value = '';
+            document.getElementById('packageModal').style.display = 'flex';
+        });
+        // حفظ أو تعديل باقة
+        document.getElementById('packageForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const packageData = {
+                name: document.getElementById('packageName').value,
+                speed: parseInt(document.getElementById('packageSpeed').value),
+                price: parseInt(document.getElementById('packagePrice').value),
+                description: document.getElementById('packageDescription').value
+            };
+            const packageId = document.getElementById('packageId').value;
+            if (packageId) {
+                const id = parseInt(packageId);
+                const index = systemData.packages.findIndex(p => p.id === id);
+                packageData.id = id;
+                systemData.packages[index] = packageData;
+                showSuccess('تم تحديث الباقة بنجاح');
+            } else {
+                const newId = systemData.packages.length > 0 ?
+                    Math.max(...systemData.packages.map(p => p.id)) + 1 : 1;
+                packageData.id = newId;
+                systemData.packages.push(packageData);
+                showSuccess('تم إضافة الباقة بنجاح');
+            }
+            saveDataToLocalStorage();
+            renderPackages();
+            document.getElementById('packageModal').style.display = 'none';
+        });
+        // تعديل باقة
+        window.editPackage = function (id) {
+            const pkg = systemData.packages.find(p => p.id === id);
+            if (pkg) {
+                document.getElementById('packageModalTitle').textContent = 'تعديل باقة';
+                document.getElementById('packageId').value = pkg.id;
+                document.getElementById('packageName').value = pkg.name;
+                document.getElementById('packageSpeed').value = pkg.speed;
+                document.getElementById('packagePrice').value = pkg.price;
+                document.getElementById('packageDescription').value = pkg.description || '';
+                document.getElementById('packageModal').style.display = 'flex';
+            }
+        }
+        // حذف باقة
+        window.deletePackage = function (id) {
+            Swal.fire({
+                title: 'هل أنت متأكد؟',
+                text: "لن تتمكن من استعادة هذه الباقة!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#2c3e50',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'نعم، احذفها!',
+                cancelButtonText: 'إلغاء'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    systemData.packages = systemData.packages.filter(p => p.id !== id);
+                    saveDataToLocalStorage();
+                    renderPackages();
+                    showSuccess('تم حذف الباقة بنجاح');
+                }
             });
         }
         // عرض الاشتراكات
@@ -774,7 +832,7 @@
 تاريخ الاشتراك: ${subscriptionData.subscriptionDate}
 ملاحظات: ${subscriptionData.notes || "لا يوجد"}
 `;
-                    fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`,   {
+                    fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`,    {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -792,7 +850,7 @@
                 renderSubscriptions();
                 document.getElementById('subscriptionModal').style.display = 'none';
             });
-            // باقي الكود...
+            // زر الطباعة
             document.getElementById('printBtn').addEventListener('click', function () {
                 const printContent = `
                     <html>
