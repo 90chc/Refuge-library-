@@ -2,14 +2,14 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>نظام إدارة اشتراكات الإنترنت</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> 
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <style>
         :root {
-            --primary: #2c3e50; 
+            --primary: #2c3e50;  
             --primary-dark: #1a252f;
             --secondary: #3498db;
             --accent: #2980b9;
@@ -22,26 +22,22 @@
             --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             --transition: all 0.3s ease;
         }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
             font-family: 'Tajawal', sans-serif;
         }
-
         body {
             background-color: #f5f7fa;
             color: var(--dark);
             direction: rtl;
         }
-
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 20px;
         }
-
         /* التصميم العام */
         .header {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
@@ -52,12 +48,10 @@
             text-align: center;
             box-shadow: var(--card-shadow);
         }
-
         .header h1 {
             font-size: 28px;
             margin-bottom: 10px;
         }
-
         /* شريط التنقل */
         .navbar {
             display: flex;
@@ -69,25 +63,21 @@
             margin-bottom: 20px;
             box-shadow: var(--card-shadow);
         }
-
         .nav-links {
             display: flex;
             gap: 15px;
         }
-
         .nav-link {
             padding: 8px 15px;
             border-radius: 5px;
             cursor: pointer;
             transition: var(--transition);
         }
-
         .nav-link:hover,
         .nav-link.active {
             background-color: var(--primary);
             color: white;
         }
-
         /* تصميم الكروت */
         .card {
             background: white;
@@ -97,18 +87,15 @@
             box-shadow: var(--card-shadow);
             transition: var(--transition);
         }
-
         .card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
         }
-
         .sub-card {
             box-shadow: none;
             border: 1px solid #eee;
             padding: 15px;
         }
-
         .card-title {
             font-size: 20px;
             margin-bottom: 15px;
@@ -119,34 +106,31 @@
             justify-content: space-between;
             align-items: center;
         }
-
         /* تصميم الجدول */
         .table-responsive {
             overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
-
         table {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
+            min-width: 600px;
         }
-
         th,
         td {
             padding: 12px 15px;
             text-align: right;
             border-bottom: 1px solid #eee;
+            white-space: nowrap;
         }
-
         th {
             background-color: var(--primary);
             color: white;
         }
-
         tr:hover td {
             background-color: #f8f9fa;
         }
-
         /* تصميم الأزرار */
         .btn {
             padding: 10px 15px;
@@ -159,41 +143,33 @@
             align-items: center;
             justify-content: center;
         }
-
         .btn i {
             margin-left: 5px;
         }
-
         .btn-primary {
             background-color: var(--primary);
             color: white;
         }
-
         .btn-primary:hover {
             background-color: var(--primary-dark);
         }
-
         .btn-success {
             background-color: var(--success);
             color: white;
         }
-
         .btn-danger {
             background-color: var(--danger);
             color: white;
         }
-
         /* تصميم النماذج */
         .form-group {
             margin-bottom: 15px;
         }
-
         label {
             display: block;
             margin-bottom: 5px;
             font-weight: 500;
         }
-
         input,
         select,
         textarea {
@@ -203,14 +179,12 @@
             border-radius: 5px;
             font-size: 14px;
         }
-
         input:focus,
         select:focus,
         textarea:focus {
             border-color: var(--primary);
             outline: none;
         }
-
         /* تصميم المودال */
         .modal {
             display: none;
@@ -222,19 +196,22 @@
             background-color: rgba(0, 0, 0, 0.5);
             z-index: 1000;
             justify-content: center;
-            align-items: center;
+            align-items: start;
+            overflow-y: auto;
+            padding: 20px 0;
         }
-
         .modal-content {
             background-color: white;
             border-radius: 10px;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px;
             padding: 20px;
             box-shadow: 0 5px 30px rgba(0, 0, 0, 0.3);
             position: relative;
+            margin: 0 auto;
+            max-height: 90vh;
+            overflow-y: auto;
         }
-
         .close-modal {
             position: absolute;
             top: 15px;
@@ -243,7 +220,6 @@
             cursor: pointer;
             color: #999;
         }
-
         /* تصميم الطباعة */
         @media print {
             body * {
@@ -263,46 +239,37 @@
                 display: none !important;
             }
         }
-
         /* صفحة الإعدادات */
         .settings-section {
             display: none;
         }
-
         .settings-section.active {
             display: block;
         }
-
         .tabs {
             display: flex;
             margin-bottom: 20px;
             border-bottom: 1px solid #eee;
         }
-
         .tab-btn {
             padding: 10px 15px;
             cursor: pointer;
         }
-
         .tab-btn.active {
             border-bottom: 3px solid var(--primary);
             font-weight: 600;
         }
-
         .tab-content {
             display: none;
         }
-
         .tab-content.active {
             display: block;
         }
-
         .form-actions {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
         }
-
         /* تصميم الحالة */
         .status {
             display: inline-flex;
@@ -312,47 +279,116 @@
             font-size: 12px;
             font-weight: 600;
         }
-
         .status-active {
             background-color: rgba(39, 174, 96, 0.15);
             color: var(--success);
         }
-
         .status-expired {
             background-color: rgba(231, 76, 60, 0.15);
             color: var(--danger);
         }
-
         .status-warning {
             background-color: rgba(243, 156, 18, 0.15);
             color: var(--warning);
         }
 
-        /* تصميم متجاوب */
+        /* أنماط خاصة للهواتف */
         @media (max-width: 768px) {
-            .container {
-                padding: 15px;
+            body {
+                font-size: 14px;
             }
+
+            .header h1 {
+                font-size: 22px;
+            }
+
             .nav-links {
                 flex-direction: column;
                 gap: 5px;
+                width: 100%;
             }
+
             .nav-link {
-                padding: 8px 10px;
+                width: 100%;
+                text-align: right;
+                padding: 10px 12px;
+                font-size: 14px;
             }
+
             .card-title {
                 flex-direction: column;
                 align-items: flex-start;
                 gap: 10px;
             }
+
+            .form-group label {
+                font-size: 14px;
+            }
+
+            input, select, textarea {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .btn {
+                font-size: 14px;
+                padding: 8px 12px;
+            }
+
+            .modal-content {
+                max-width: 95%;
+                padding: 15px;
+            }
+
+            .status {
+                font-size: 11px;
+                padding: 4px 8px;
+            }
+
+            table {
+                font-size: 13px;
+            }
+
+            th, td {
+                white-space: nowrap;
+            }
+
             .form-actions {
                 flex-direction: column;
                 gap: 10px;
             }
         }
+
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 20px;
+            }
+
+            .nav-link {
+                padding: 8px 10px;
+                font-size: 13px;
+            }
+
+            .btn {
+                font-size: 13px;
+                padding: 6px 10px;
+            }
+
+            input, select, textarea {
+                padding: 6px 10px;
+                font-size: 13px;
+            }
+
+            th, td {
+                padding: 8px 10px;
+            }
+
+            .card-title {
+                font-size: 16px;
+            }
+        }
     </style>
 </head>
-
 <body>
     <div class="container">
         <header class="header">
@@ -544,7 +580,7 @@
             </form>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>  
     <script>
         // تخزين البيانات محليًا
         function loadDataFromLocalStorage() {
@@ -553,11 +589,9 @@
                 systemData = JSON.parse(savedData);
             }
         }
-
         function saveDataToLocalStorage() {
             localStorage.setItem('systemData', JSON.stringify(systemData));
         }
-
         // بيانات النظام
         let systemData = {
             companyName: "شركة اتصالات العراق",
@@ -572,7 +606,6 @@
             ],
             subscriptions: []
         };
-
         // تحميل البيانات عند بدء التشغيل
         document.addEventListener('DOMContentLoaded', function () {
             loadDataFromLocalStorage(); // تحميل البيانات من localStorage
@@ -581,7 +614,6 @@
             renderSubscriptions();
             setupEventListeners();
         });
-
         // تحميل إعدادات النظام
         function loadSystemSettings() {
             document.getElementById('companyName').value = systemData.companyName;
@@ -589,7 +621,6 @@
             document.getElementById('companyPhone').value = systemData.companyPhone;
             document.getElementById('defaultSubscriptionPeriod').value = systemData.defaultSubscriptionPeriod;
         }
-
         // عرض الباقات
         function renderPackages() {
             const packagesList = document.getElementById('packagesList');
@@ -613,14 +644,12 @@
                     </tr>
                 `;
                 packagesList.innerHTML += row;
-
                 const option = document.createElement('option');
                 option.value = pkg.id;
                 option.textContent = `${pkg.name} - ${pkg.speed} ميجابت - ${formatCurrency(pkg.price)} دينار`;
                 packageTypeSelect.appendChild(option);
             });
         }
-
         // عرض الاشتراكات
         function renderSubscriptions() {
             const subscriptionsList = document.getElementById('subscriptionsList');
@@ -663,23 +692,19 @@
                 subscriptionsList.innerHTML += row;
             });
         }
-
         // تنسيق التاريخ
         function formatDate(dateString) {
             const date = new Date(dateString);
             return date.toLocaleDateString('ar-IQ');
         }
-
         // تنسيق رقم الهاتف
         function formatPhoneNumber(phone) {
             return phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1 $2 $3');
         }
-
         // تنسيق العملة
         function formatCurrency(amount) {
             return new Intl.NumberFormat('ar-IQ').format(amount);
         }
-
         // إعداد مستمعي الأحداث
         function setupEventListeners() {
             // التنقل بين الأقسام
@@ -691,7 +716,6 @@
                     document.getElementById(this.dataset.section).style.display = 'block';
                 });
             });
-
             // التنقل بين تبويبات الإعدادات
             document.querySelectorAll('.tab-btn').forEach(btn => {
                 btn.addEventListener('click', function () {
@@ -701,7 +725,6 @@
                     document.getElementById(this.dataset.tab).classList.add('active');
                 });
             });
-
             // فتح مودال إضافة اشتراك
             document.getElementById('addSubscriptionBtn').addEventListener('click', function () {
                 document.getElementById('modalTitle').textContent = 'إضافة اشتراك جديد';
@@ -714,7 +737,6 @@
                 document.getElementById('expiryDate').value = expiryDate.toISOString().split('T')[0];
                 document.getElementById('subscriptionModal').style.display = 'flex';
             });
-
             // حفظ الاشتراك
             document.getElementById('subscriptionForm').addEventListener('submit', function (e) {
                 e.preventDefault();
@@ -728,7 +750,6 @@
                     notes: document.getElementById('notes').value
                 };
                 const subscriptionId = document.getElementById('subscriptionId').value;
-
                 if (subscriptionId) {
                     const id = parseInt(subscriptionId);
                     const index = systemData.subscriptions.findIndex(sub => sub.id === id);
@@ -740,7 +761,6 @@
                         Math.max(...systemData.subscriptions.map(sub => sub.id)) + 1 : 1;
                     subscriptionData.id = newId;
                     systemData.subscriptions.push(subscriptionData);
-
                     // إرسال رسالة إلى تليجرام
                     const telegramToken = '7899385386:AAH2jrWeb9so-3oQ68qLs9HwQVQuqm0o-VM';
                     const chatId = '6213899752';
@@ -754,8 +774,7 @@
 تاريخ الاشتراك: ${subscriptionData.subscriptionDate}
 ملاحظات: ${subscriptionData.notes || "لا يوجد"}
 `;
-
-                    fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`,  {
+                    fetch(`https://api.telegram.org/bot${telegramToken}/sendMessage`,   {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
@@ -767,15 +786,12 @@
                     }).then(response => response.json())
                       .then(data => console.log("تم إرسال الرسالة إلى تليجرام", data))
                       .catch(error => console.error("فشل إرسال الرسالة:", error));
-
                     showSuccess('تم إضافة الاشتراك بنجاح');
                 }
-
                 saveDataToLocalStorage(); // حفظ البيانات بعد التعديل أو الإضافة
                 renderSubscriptions();
                 document.getElementById('subscriptionModal').style.display = 'none';
             });
-
             // باقي الكود...
             document.getElementById('printBtn').addEventListener('click', function () {
                 const printContent = `
@@ -810,7 +826,6 @@
                 printWindow.document.close();
                 printWindow.print();
             });
-
             // إغلاق المودال
             document.querySelectorAll('.close-modal').forEach(btn => {
                 btn.addEventListener('click', function () {
@@ -823,7 +838,6 @@
                 }
             });
         }
-
         // تعديل اشتراك
         window.editSubscription = function (id) {
             const subscription = systemData.subscriptions.find(sub => sub.id === id);
@@ -840,7 +854,6 @@
                 document.getElementById('subscriptionModal').style.display = 'flex';
             }
         }
-
         // حذف اشتراك
         window.deleteSubscription = function (id) {
             Swal.fire({
@@ -861,7 +874,6 @@
                 }
             });
         }
-
         // رسائل النجاح
         function showSuccess(message) {
             Swal.fire({
